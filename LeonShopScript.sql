@@ -1,23 +1,21 @@
 CREATE DATABASE LeonShopScript;
 USING LeonShopScript;
 
--- USERS (propio de Laravel, solo añadimos campos)
+-- USERS
 ALTER TABLE users
-    ADD saldo DECIMAL(12,2) DEFAULT 0,
-    ADD vip BOOLEAN DEFAULT FALSE;
+    ADD saldo DECIMAL(12,2) DEFAULT 0;
 
 
 -- MARCA
-CREATE TABLE marca (
+CREATE TABLE marcas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(30) NOT NULL UNIQUE
 );
 
 
 -- PRODUCTO
-CREATE TABLE producto (
+CREATE TABLE productos (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    vip BOOLEAN DEFAULT FALSE,
     precio DECIMAL(12,2) NOT NULL,
     unidades INT UNSIGNED NOT NULL,
     modelo VARCHAR(30) NOT NULL,
@@ -39,7 +37,7 @@ CREATE TABLE direccion (
 
 
 -- COMPRA
-CREATE TABLE compra (
+CREATE TABLE compras (
     id INT AUTO_INCREMENT PRIMARY KEY,
     producto_id INT NOT NULL,
     user_id INT NOT NULL,
@@ -54,7 +52,7 @@ CREATE TABLE compra (
 
 
 -- COMENTARIO
-CREATE TABLE comentario (
+CREATE TABLE comentarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     producto_id INT NOT NULL,

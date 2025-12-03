@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
     protected $fillable = [
-        'vip',
         'precio',
         'unidades',
         'modelo',
@@ -29,5 +28,6 @@ class Producto extends Model
     {
         return $this->hasMany(Compra::class);
     }
+
 }
 

@@ -1,6 +1,6 @@
 @extends('layouts/layout')
 
-@section('title', 'Panel Admin')
+@section('title', 'Panel del admin')
 
 @section('content')
 

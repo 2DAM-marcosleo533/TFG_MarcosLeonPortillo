@@ -49,7 +49,7 @@
      <div>
     <a href="{{ auth()->check() && auth()->user()->is_admin ? route('admin') : route('home') }}"
        style="color:white; text-decoration:none; font-weight:bold;">
-        Mi Tienda
+        LEONSHOP
     </a>
 </div>
 
@@ -82,7 +82,7 @@
 
 
 
-    {{-- CONTENIDO --}}
+    {{-- CONTENIDO DE LA PÁGINA QUE SEA--}}
     <div class="content">
         @yield('content')
     </div>

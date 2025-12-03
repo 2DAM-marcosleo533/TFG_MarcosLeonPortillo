@@ -6,6 +6,5 @@
 
 <h1>Informes</h1>
 
-<p>Próximamente…</p>
 
-@endsection
+@endsection 
