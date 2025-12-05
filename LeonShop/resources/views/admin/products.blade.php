@@ -6,10 +6,7 @@
 
 <h1>Lista de productos</h1>
 
-<a href="{{ route('admin.productos.create') }}"
-   style="display:inline-block; margin-bottom:15px; padding:10px 15px; background:#999AC6; color:white; text-decoration:none; border-radius:5px;">
-    Nuevo producto
-</a>
+<a href="{{ route('admin.productos.create') }}" class="btn btn-success mb-3">Nuevo producto</a>
 
 <table border="1" cellpadding="10" style="width:100%; border-collapse:collapse;">
     <thead>
@@ -35,20 +32,20 @@
             <td>{{ $producto->unidades }}</td>
             <td>
                 <a href="{{ route('admin.products.edit', $producto->id) }}"
-                   style="margin-right:10px; text-decoration:none; color:#54da77;">
+                class="btn btn-primary btn-sm me-2">
                     Editar
                 </a>
 
                 <form method="POST" action="{{ route('admin.products.destroy', $producto->id) }}"
-                      style="display:inline;">
+                    style="display:inline;" onsubmit="return confirm('¿Eliminar este producto?');">
                     @csrf
                     @method('DELETE')
 
-                    <button type="submit"
-                            style="background:none; border:none; color:#fd0000; cursor:pointer; padding:0;">
+                    <button type="submit" class="btn btn-danger btn-sm">
                         Eliminar
                     </button>
                 </form>
+            </td>
         </tr>
         @endforeach
     </tbody>

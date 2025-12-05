@@ -33,10 +33,11 @@ class ProductoController extends Controller
         return redirect()->route('admin.products');
     }
 
-    public function show(Producto $producto)
-    {
-      //  return view('admin.productoDetalle', compact('producto'));
-    }
+    
+ public function show(Producto $producto)
+{
+    return view('detallesProducto', compact('producto'));
+}
 
     public function edit($id)
     {

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'LeonShop')</title>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
     html, body {
         height: 100%;
@@ -89,8 +89,8 @@
 
     {{-- PIE DE PÁGINA --}}
     <footer>
-        © {{ date('Y') }} Mi Tienda — Todos los derechos reservados
+        © {{ date('Y') }} LEONSHOP — Todos los derechos reservados
     </footer>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
