@@ -51,7 +51,7 @@ class AuthController extends Controller
         return redirect()->route('home');
     }
 
-    return back()->withErrors(['email' => 'Credenciales incorrectas']);
+    return back()->withErrors(['email' => 'Las credenciales no son correctas']);
 }
 
     public function logout()

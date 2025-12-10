@@ -6,13 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Compra extends Model
 {
-    protected $fillable = [
-        'producto_id',
-        'user_id',
-        'unidades',
-        'importe',
-        'iva'
-    ];
+    protected $fillable = ['producto_id', 'user_id', 'unidades', 'importe', 'iva'];
 
     public function producto()
     {

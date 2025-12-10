@@ -6,11 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Direccion extends Model
 {
-    protected $fillable = [
-        'user_id',
-        'direccion_envio',
-        'direccion_facturacion'
-    ];
+    protected $fillable = ['user_id', 'direccion_envio', 'direccion_facturacion'];
 
     public function user()
     {

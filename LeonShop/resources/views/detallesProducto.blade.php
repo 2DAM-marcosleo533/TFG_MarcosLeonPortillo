@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts/layout')
 
 @section('title', $producto->nombre)
 
@@ -13,10 +13,20 @@
 
     <br>
 
-    <a href="{{ route('home') }}" class="btn btn-primary btn-sm">
+    <a href="{{ route('home') }}" class="btn btn-secondary btn-sm">
         Volver a la tienda
     </a>
 
+    @auth
+    <a href="{{ route('compras.create', $producto) }}" class="btn btn-primary btn-sm">
+        Comprar
+    </a>
+@else
+    <a href="{{ route('login') }}" class="btn btn-primary btn-sm">
+        Comprar
+    </a>
+@endauth
+</a>
 </div>
 
 @endsection

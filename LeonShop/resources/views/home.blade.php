@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts/layout')
 
 @section('title', 'Inicio')
 
@@ -35,9 +35,7 @@
             <p style="color:red; font-weight:bold;">AGOTADO</p>
         @endif
 
-        <a href="{{ route('producto.show', $producto) }}"
-   style="background:#007bff; color:white; padding:8px 15px;
-          text-decoration:none; border-radius:5px; display:inline-block;">
+        <a href="{{ route('producto.show', $producto) }}" class="btn btn-primary">
    Comprar
 </a>
     </div>

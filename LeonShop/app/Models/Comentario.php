@@ -6,12 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comentario extends Model
 {
-    protected $fillable = [
-        'user_id',
-        'producto_id',
-        'texto',
-        'valoracion'
-    ];
+    protected $fillable = ['user_id', 'producto_id', 'texto', 'valoracion'];
 
     public function user()
     {

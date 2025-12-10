@@ -5,18 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'LeonShop')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-    html, body {
-        height: 100%;
+ <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+    body {
         margin: 0;
         padding: 0;
+        background-color: #F9F9F9;
+        font-family: 'Inter', sans-serif; 
+        font-size: 14px;
     }
 
-    body {
-        display: flex;
-        flex-direction: column;
-        background-color: #F9F9F9;
-        font-family: Arial, sans-serif;
+    h1 {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 40px;
+        letter-spacing: 1px;
+    }
+
+    h2 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 30px;
     }
 
     header {
@@ -25,11 +33,7 @@
         color: white;
         font-size: 20px;
         font-weight: bold;
-    }
-
-    .content {
-        padding: 20px;
-        flex: 1; 
+        font-family: 'Bebas Neue', sans-serif;
     }
 
     footer {
@@ -37,8 +41,17 @@
         color: white;
         padding: 20px;
         text-align: center;
+        margin-top: 40px;
+        font-family: 'Inter', sans-serif;
     }
+
+   .content {
+    padding: 20px;
+    min-height: calc(100vh - 160px);
+}
+
 </style>
+
 
 </head>
 <body>
@@ -67,14 +80,23 @@
             </a>
         @endguest
 
-        @auth
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button style="background:none; border:none; color:white; font-weight:bold; cursor:pointer;">
-                    Cerrar sesión
-                </button>
-            </form>
-        @endauth
+       @auth
+    <div style="display:flex; align-items:center; gap:15px;">
+
+        <a href="{{ route('perfil.edit') }}"
+           style="color:white; text-decoration:none; font-weight:bold;">
+            Bienvenido, {{ auth()->user()->name }}!
+        </a>
+
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button style="background:none; border:none; color:white; font-weight:bold; cursor:pointer;">
+                Cerrar sesión
+            </button>
+        </form>
+
+    </div>
+@endauth
 
     </div>
 
