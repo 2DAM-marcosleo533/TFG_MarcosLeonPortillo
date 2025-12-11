@@ -57,11 +57,11 @@
 <body>
 
     {{-- CABECERA --}}
- <header style="background-color: #999AC6; padding: 20px; color: white; font-size: 20px; font-weight: bold; display:flex; justify-content:space-between; align-items:center;">
+ <header style="background-color: #F0EEE5; padding: 20px; color: black; font-size: 20px; font-weight: bold; display:flex; justify-content:space-between; align-items:center;">
     
      <div>
     <a href="{{ auth()->check() && auth()->user()->is_admin ? route('admin') : route('home') }}"
-       style="color:white; text-decoration:none; font-weight:bold;">
+       style="color:black; text-decoration:none; font-weight:bold;">
         LEONSHOP
     </a>
 </div>
@@ -70,12 +70,12 @@
 
         @guest
             <a href="{{ route('register') }}" 
-               style="color:white; text-decoration:none; font-weight:bold;">
+               style="color:black; text-decoration:none; font-weight:bold;">
                Registrarse
             </a>
 
             <a href="{{ route('login') }}" 
-               style="color:white; text-decoration:none; font-weight:bold;">
+               style="color:black; text-decoration:none; font-weight:bold;">
                Iniciar sesión
             </a>
         @endguest
@@ -84,13 +84,13 @@
     <div style="display:flex; align-items:center; gap:15px;">
 
         <a href="{{ route('perfil.edit') }}"
-           style="color:white; text-decoration:none; font-weight:bold;">
+           style="color:black; text-decoration:none; font-weight:bold;">
             Bienvenido, {{ auth()->user()->name }}!
         </a>
 
         <form action="{{ route('logout') }}" method="POST">
             @csrf
-            <button style="background:none; border:none; color:white; font-weight:bold; cursor:pointer;">
+            <button style="background:none; border:none; color:black; font-weight:bold; cursor:pointer;">
                 Cerrar sesión
             </button>
         </form>

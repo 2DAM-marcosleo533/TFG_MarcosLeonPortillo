@@ -4,50 +4,77 @@
 
 @section('content')
 
-<h1>Editar Producto</h1>
+<div class="container" style="max-width: 600px; margin-top: 30px;">
+    
+    <h1 class="mb-4">Editar producto</h1>
 
-<form action="{{ route('admin.products.update', $producto->id) }}" method="POST">
-    @csrf
-    @method('PUT')
+    <div style="background:white; padding:25px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1);">
 
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label for="nombre">Nombre</label>
-        <input type="text" name="nombre" id="nombre" class="form-control" value="{{ $producto->nombre }}" required style="display: block; width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+        <form action="{{ route('admin.products.update', $producto->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            {{-- Nombre --}}
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input type="text" name="nombre" class="form-control"
+                       value="{{ $producto->nombre }}" required>
+            </div>
+
+            {{-- Modelo --}}
+            <div class="mb-3">
+                <label class="form-label">Modelo</label>
+                <input type="text" name="modelo" class="form-control"
+                       value="{{ $producto->modelo }}" required>
+            </div>
+
+            {{-- Precio --}}
+            <div class="mb-3">
+                <label class="form-label">Precio (€)</label>
+                <input type="number" step="0.01" name="precio" class="form-control"
+                       value="{{ $producto->precio }}" required>
+            </div>
+
+            {{-- Unidades --}}
+            <div class="mb-3">
+                <label class="form-label">Unidades</label>
+                <input type="number" name="unidades" class="form-control"
+                       value="{{ $producto->unidades }}" required>
+            </div>
+
+            {{-- Marca --}}
+            <div class="mb-3">
+                <label class="form-label">Marca</label>
+                <select name="marca_id" class="form-select" required>
+                    <option value="">-- Selecciona una marca --</option>
+
+                    @foreach ($marcas as $marca)
+                        <option value="{{ $marca->id }}" 
+                            @selected($producto->marca_id == $marca->id)>
+                            {{ $marca->nombre }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            {{-- Botones --}}
+            <div class="d-flex justify-content-between mt-4">
+
+                <button type="submit" class="btn"
+                    style="background:#999AC6; color:white; font-weight:bold; padding:12px 18px; border-radius:6px;">
+                    Actualizar Producto
+                </button>
+
+                <a href="{{ route('admin.products') }}"
+                    class="btn"
+                    style="background:#666; color:white; padding:12px 18px; border-radius:6px;">
+                    Volver
+                </a>
+            </div>
+
+        </form>
     </div>
 
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label for="modelo">Modelo</label>
-        <input type="text" name="modelo" id="modelo" class="form-control" value="{{ $producto->modelo }}" required style="display: block; width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
-    </div>
-
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label for="precio">Precio</label>
-        <input type="number" name="precio" id="precio" class="form-control" value="{{ $producto->precio }}" step="0.01" required style="display: block; width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
-    </div>
-
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label for="unidades">Unidades</label>
-        <input type="number" name="unidades" id="unidades" class="form-control" value="{{ $producto->unidades }}" required style="display: block; width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
-    </div>
-
-    <div class="form-group" style="margin-bottom: 15px;">
-        <label for="marca_id">Marca</label>
-        <select name="marca_id" id="marca_id" class="form-control" required style="display: block; width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
-            <option value="">Selecciona una marca</option>
-            @foreach ($marcas as $marca)
-                <option value="{{ $marca->id }}" @selected($producto->marca_id === $marca->id)>
-                    {{ $marca->nombre }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-
-    <button type="submit" style="display:inline-block; padding:10px 15px; background:#999AC6; color:white; border:none; border-radius:5px; cursor:pointer;">
-        Actualizar Producto
-    </button>
-    <a href="{{ route('admin.products') }}" style="display:inline-block; margin-left:10px; padding:10px 15px; background:#666; color:white; text-decoration:none; border-radius:5px;">
-        Volver
-    </a>
-</form>
+</div>
 
 @endsection

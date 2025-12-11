@@ -39,8 +39,10 @@
                         Editar
                     </a>
 
-                    <form method="POST" action="{{ route('admin.products.destroy', $producto->id) }}"
-                          style="display:inline;" onsubmit="return confirm('¿Eliminar este producto?');">
+                    <form method="POST"
+                          action="{{ route('admin.products.destroy', $producto->id) }}"
+                          style="display:inline;"
+                          onsubmit="return confirm('¿Eliminar este producto?');">
                         @csrf
                         @method('DELETE')
 
@@ -51,7 +53,9 @@
                 </td>
             </tr>
             @endforeach
-    </tbody>
-</table>
+        </tbody>
+
+    </table>
+</div> {{-- cierre del container --}}
 
 @endsection
