@@ -8,7 +8,7 @@
     <h1 class="mb-4">Lista de productos</h1>
 
     <a href="{{ route('admin.productos.create') }}" class="btn btn-primary mb-3">
-        <i class="bi bi-plus-circle"></i> Nuevo producto
+         Nuevo producto
     </a>
 
     <table class="table table-striped table-hover">
@@ -46,9 +46,9 @@
                         @csrf
                         @method('DELETE')
 
-                        <button type="submit" class="btn btn-danger btn-sm">
-                            Eliminar
-                        </button>
+                        <button type="submit" class="btn btn-danger btn-sm" title="Eliminar">
+    <i class="bi bi-trash"></i>
+</button>
                     </form>
                 </td>
             </tr>
@@ -56,6 +56,12 @@
         </tbody>
 
     </table>
+
+    <a href="{{ route('admin') }}"
+                    class="btn"
+                    style="background:#666; color:white; padding:12px 18px; border-radius:6px; width:5%; text-align:center;">
+                    <i class="bi bi-arrow-return-left"></i>
+                </a>
 </div> {{-- cierre del container --}}
 
 @endsection

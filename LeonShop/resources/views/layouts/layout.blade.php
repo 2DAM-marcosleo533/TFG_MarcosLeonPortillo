@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'LeonShop')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
@@ -50,6 +52,12 @@
     min-height: calc(100vh - 160px);
 }
 
+.login-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+
 </style>
 
 
@@ -85,7 +93,7 @@
 
         <a href="{{ route('perfil.edit') }}"
            style="color:black; text-decoration:none; font-weight:bold;">
-            Bienvenido, {{ auth()->user()->name }}!
+            <img class="login-icon" src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="icono login"> {{ auth()->user()->name }}
         </a>
 
         <form action="{{ route('logout') }}" method="POST">

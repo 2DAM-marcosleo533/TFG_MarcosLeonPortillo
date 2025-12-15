@@ -61,8 +61,8 @@
 
                 <a href="{{ route('admin.products') }}"
                     class="btn"
-                    style="background:#666; color:white; padding:12px 18px; border-radius:6px; width:50%; text-align:center;">
-                    Volver
+                    style="background:#666; color:white; padding:12px 18px; border-radius:6px; width:10%; text-align:center;">
+                    <i class="bi bi-arrow-return-left"></i>
                 </a>
 
             </div>

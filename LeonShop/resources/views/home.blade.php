@@ -7,6 +7,21 @@
 <h1 style="text-align:center;">LEONSHOP</h1>
 <p style="text-align:center;">Bienvenido a nuestra tienda</p>
 
+<form method="GET" action="{{ route('home') }}" style="max-width:400px; margin:20px auto;">
+    <div class="input-group">
+        <input type="text"
+               name="buscar"
+               class="form-control"
+               placeholder="Buscar producto..."
+               value="{{ $busqueda ?? '' }}">
+
+        <button class="btn btn-primary" type="submit">
+            Buscar
+        </button>
+    </div>
+</form>
+
+
 <div style="
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -22,13 +37,10 @@
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
         text-align: center;
     ">
-
         <h3>{{ $producto->nombre }}</h3>
 
         <p><strong>Marca:</strong> {{ $producto->marca->nombre }}</p>
-
         <p><strong>Precio:</strong> {{ $producto->precio }} €</p>
-
         <p><strong>Unidades:</strong> {{ $producto->unidades }}</p>
 
         @if ($producto->unidades == 0)
@@ -36,10 +48,11 @@
         @endif
 
         <a href="{{ route('producto.show', $producto) }}" class="btn btn-primary">
-   Comprar
-</a>
+            Comprar
+        </a>
     </div>
 @endforeach
+
 
 </div>
 

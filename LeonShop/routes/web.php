@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompraController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\InformeController;
+use App\Http\Controllers\ComentarioController;
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
@@ -57,6 +58,26 @@ Route::controller(InformeController::class)->group(function () {
 Route::controller(UserController::class)->group(function () {
     Route::get('/perfil', 'edit')->name('perfil.edit');
     Route::post('/perfil', 'update')->name('perfil.update');
+});
+
+Route::controller(ComentarioController::class)
+    ->middleware('auth')
+    ->group(function () {
+
+        Route::get('/producto/{producto}/comentario', 'create')
+            ->name('comentarios.create');
+
+        Route::post('/producto/{producto}/comentario', 'store')
+            ->name('comentarios.store');
+
+        Route::get('/comentario/{comentario}/editar', 'edit')
+            ->name('comentarios.edit');
+
+        Route::put('/comentario/{comentario}', 'update')
+            ->name('comentarios.update');
+
+        Route::delete('/comentario/{comentario}', 'destroy')
+            ->name('comentarios.destroy');
 });
 
 

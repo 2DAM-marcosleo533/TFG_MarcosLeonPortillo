@@ -37,7 +37,7 @@
     .login-button {
         width: 100%;
         padding: 12px;
-        background-color: #C06E52;
+        background-color: #999AC6;
         color: white;
         border: none;
         font-size: 15px;
@@ -47,7 +47,7 @@
     }
 
     .login-button:hover {
-        background-color: #C06E52;
+        background-color: #999AC6;
     }
 </style>
 

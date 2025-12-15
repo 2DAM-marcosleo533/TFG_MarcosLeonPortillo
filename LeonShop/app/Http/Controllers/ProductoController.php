@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use App\Models\Marca;
+use App\Models\Comentario;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
@@ -34,9 +37,40 @@ class ProductoController extends Controller
     }
 
     
- public function show(Producto $producto)
+
+public function show(Producto $producto)
 {
-    return view('detallesProducto', compact('producto'));
+    // Comentarios del producto
+    $comentarios = $producto->comentarios()
+        ->with('user')
+        ->latest()
+        ->get();
+
+    $puedeComentar = false;
+
+    if (Auth::check()) {
+
+        // ¿Ha comprado el producto?
+        $haComprado = DB::table('compras')
+            ->where('user_id', Auth::id())
+            ->where('producto_id', $producto->id)
+            ->exists();
+
+        // ¿Ya ha comentado el producto?
+        $yaComentado = DB::table('comentarios')
+            ->where('user_id', Auth::id())
+            ->where('producto_id', $producto->id)
+            ->exists();
+
+        // Puede comentar SOLO si ha comprado y NO ha comentado
+        $puedeComentar = $haComprado && !$yaComentado;
+    }
+
+    return view('detallesProducto', compact(
+        'producto',
+        'comentarios',
+        'puedeComentar'
+    ));
 }
 
     public function edit($id)
