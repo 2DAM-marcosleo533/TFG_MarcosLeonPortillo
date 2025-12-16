@@ -16,6 +16,7 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
+                <th>Tipo</th>
                 <th>Modelo</th>
                 <th>Marca</th>
                 <th>Precio</th>
@@ -29,6 +30,7 @@
             <tr>
                 <td>{{ $producto->id }}</td>
                 <td>{{ $producto->nombre }}</td>
+                <td>{{ $producto->tipo }}</td>
                 <td>{{ $producto->modelo }}</td>
                 <td>{{ $producto->marca->nombre }}</td>
                 <td>{{ $producto->precio }} €</td>

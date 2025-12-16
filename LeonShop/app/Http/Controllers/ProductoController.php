@@ -27,6 +27,7 @@ class ProductoController extends Controller
     {
         Producto::create([
             'nombre' => $request->nombre,
+            'tipo' => $request->tipo,
             'modelo' => $request->modelo,
             'precio' => $request->precio,
             'unidades' => $request->unidades,
@@ -85,6 +86,7 @@ public function show(Producto $producto)
         $producto = Producto::findOrFail($id);
         $producto->update([
             'nombre' => $request->nombre,
+            'tipo' => $request->tipo,
             'modelo' => $request->modelo,
             'precio' => $request->precio,
             'unidades' => $request->unidades,

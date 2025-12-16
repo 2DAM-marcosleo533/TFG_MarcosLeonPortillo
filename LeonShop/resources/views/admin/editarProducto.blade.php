@@ -21,6 +21,21 @@
                        value="{{ $producto->nombre }}" required>
             </div>
 
+            {{-- Tipo --}}
+            <div class="mb-3">
+                <label class="form-label">Tipo</label>
+                 <select name="tipo" class="form-select" required>
+        <option value="">-- Selecciona un tipo --</option>
+        <option value="Camiseta">Camiseta</option>
+        <option value="Pantalón">Pantalón</option>
+        <option value="Sudadera">Sudadera</option>
+        <option value="Zapatos">Zapatos</option>
+        <option value="Chaqueta">Chaqueta</option>
+        <option value="Jersey">Jersey</option>
+        <option value="Shorts">Shorts</option>          
+    </select>
+</div>
+
             {{-- Modelo --}}
             <div class="mb-3">
                 <label class="form-label">Modelo</label>

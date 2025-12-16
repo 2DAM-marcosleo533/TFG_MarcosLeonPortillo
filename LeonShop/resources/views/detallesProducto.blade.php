@@ -4,102 +4,160 @@
 
 @section('content')
 
-<div style="max-width:600px; margin:auto; background:white; padding:20px; border-radius:10px;">
+@php
+    $imagenProducto = 'imagenes/default.png';
 
-    <h2>{{ $producto->nombre }}</h2>
-    <p><strong>Modelo:</strong> {{ $producto->modelo }}</p>
-    <p><strong>Precio:</strong> {{ $producto->precio }} €</p>
-    <p><strong>Unidades disponibles:</strong> {{ $producto->unidades }}</p>
+    switch ($producto->tipo) {
+        case 'Camiseta':
+            $imagenProducto = 'imagenes/camiseta.png';
+            break;
+        case 'Pantalón':
+            $imagenProducto = 'imagenes/pantalon.png';
+            break;
+        case 'Sudadera':
+            $imagenProducto = 'imagenes/sudadera.png';
+            break;
+        case 'Zapatos':
+            $imagenProducto = 'imagenes/zapatos.png';
+            break;
+        case 'Chaqueta':
+            $imagenProducto = 'imagenes/chaqueta.png';
+            break;
+        case 'Jersey':
+            $imagenProducto = 'imagenes/jersey.png';
+            break;
+        case 'Shorts':
+            $imagenProducto = 'imagenes/shorts.png';
+            break;
+    }
+@endphp
 
-    <br>
+{{-- TARJETA PRODUCTO --}}
+<div style="
+    max-width:700px;
+    margin:auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    display:flex;
+    gap:20px;
+    align-items:center;
+">
 
-    <a href="{{ route('home') }}" class="btn btn-secondary btn-sm">
-        Volver a la tienda
-    </a>
+    {{-- INFO --}}
+    <div style="flex:1;">
+        <h2>{{ $producto->nombre }}</h2>
+        <p><strong>Modelo:</strong> {{ $producto->modelo }}</p>
+        <p><strong>Precio:</strong> {{ $producto->precio }} €</p>
+        <p><strong>Unidades disponibles:</strong> {{ $producto->unidades }}</p>
+        <p><strong>Tipo:</strong> {{ $producto->tipo }}</p>
 
-    @auth
-    <a href="{{ route('compras.create', $producto) }}" class="btn btn-primary btn-sm">
-        Comprar
-    </a>
-@else
-    <a href="{{ route('login') }}" class="btn btn-primary btn-sm">
-        Comprar
-    </a>
-@endauth
+        <a href="{{ route('home') }}" class="btn btn-secondary btn-sm">
+            Volver a la tienda
+        </a>
 
+        @auth
+            <a href="{{ route('compras.create', $producto) }}" class="btn btn-primary btn-sm">
+                Comprar
+            </a>
+        @else
+            <a href="{{ route('login') }}" class="btn btn-primary btn-sm">
+                Comprar
+            </a>
+        @endauth
+    </div>
+
+    {{-- IMAGEN --}}
+    <div style="width:180px;">
+        <img src="{{ asset($imagenProducto) }}"
+             alt="{{ $producto->tipo }}"
+             style="width:100%; object-fit:contain;">
+    </div>
 </div>
 
+{{-- BOTÓN NUEVO COMENTARIO --}}
 @auth
     @if ($puedeComentar)
-        <a href="{{ route('comentarios.create', $producto) }}"
-           class="btn btn-primary mb-3">
-            Añadir comentario
-        </a>
+        <div class="text-center mt-4">
+            <a href="{{ route('comentarios.create', $producto) }}"
+               class="btn btn-primary">
+                Añadir comentario
+            </a>
+        </div>
     @endif
 @endauth
 
-<h3 class="mt-4">Comentarios</h3>
+<h3 class="mt-5">Comentarios</h3>
 
 @if ($comentarios->isEmpty())
     <p>No hay comentarios todavía.</p>
 @else
+
     @foreach ($comentarios as $comentario)
-    <div class="card mb-3">
-        <div class="card-body">
 
-            <strong>{{ $comentario->user->name }}</strong>
+        <div class="card mb-3" style="max-width:700px; margin:auto;">
+            <div class="card-body" style="display:flex; gap:20px; align-items:center;">
 
-            <span class="text-warning ms-2">
-                @for ($i = 1; $i <= 5; $i++)
-                    {{ $i <= $comentario->valoracion ? '★' : '☆' }}
-                @endfor
-            </span>
+                {{-- TEXTO --}}
+                <div style="flex:1;">
+                    <strong>{{ $comentario->user->name }}</strong>
 
-            <p class="mt-2">{{ $comentario->texto }}</p>
+                    <span class="text-warning ms-2">
+                        @for ($i = 1; $i <= 5; $i++)
+                            {{ $i <= $comentario->valoracion ? '★' : '☆' }}
+                        @endfor
+                    </span>
 
-            <small class="text-muted">
-                {{ $comentario->fecha }}
-            </small>
+                    <p class="mt-2">{{ $comentario->texto }}</p>
 
-            {{-- ACCIONES --}}
-            <div class="mt-2">
+                    <small class="text-muted">
+                        {{ $comentario->fecha }}
+                    </small>
 
-                {{-- EDITAR: solo dueño --}}
-                @auth
-                    @if ($comentario->user_id === auth()->id())
-                        <a href="{{ route('comentarios.edit', $comentario) }}"
-                           class="btn btn-warning btn-sm">
-                            Editar
-                        </a>
-                    @endif
-                @endauth
+                    {{-- ACCIONES --}}
+                    <div class="mt-2">
 
-                {{-- ELIMINAR: solo admin --}}
-                @auth
-                    @if (auth()->user()->is_admin)
-                        <form method="POST"
-                              action="{{ route('comentarios.destroy', $comentario) }}"
-                              style="display:inline;"
-                              onsubmit="return confirm('¿Eliminar este comentario?');">
-                            @csrf
-                            @method('DELETE')
+                        {{-- EDITAR --}}
+                        @auth
+                            @if ($comentario->user_id === auth()->id())
+                                <a href="{{ route('comentarios.edit', $comentario) }}"
+                                   class="btn btn-warning btn-sm">
+                                    Editar
+                                </a>
+                            @endif
+                        @endauth
 
-                            <button class="btn btn-danger btn-sm">
-                                Eliminar
-                            </button>
-                        </form>
-                    @endif
-                @endauth
+                        {{-- ELIMINAR (ADMIN) --}}
+                        @auth
+                            @if (auth()->user()->is_admin)
+                                <form method="POST"
+                                      action="{{ route('comentarios.destroy', $comentario) }}"
+                                      style="display:inline;"
+                                      onsubmit="return confirm('¿Eliminar este comentario?');">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button class="btn btn-danger btn-sm">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            @endif
+                        @endauth
+                    </div>
+                </div>
+
+                {{-- IMAGEN --}}
+                <div style="width:120px;">
+                    <img src="{{ asset($imagenProducto) }}"
+                         alt="{{ $producto->tipo }}"
+                         style="width:100%; object-fit:contain;">
+                </div>
 
             </div>
-
         </div>
-    </div>
-@endforeach
+
+    @endforeach
 
 @endif
-
-
-
 
 @endsection

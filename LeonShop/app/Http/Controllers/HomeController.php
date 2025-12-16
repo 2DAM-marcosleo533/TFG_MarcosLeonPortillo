@@ -3,21 +3,45 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\Marca;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index(Request $request)
+      public function index(Request $request)
     {
-        $busqueda = $request->input('buscar');
+        $query = Producto::with('marca');
 
-        $productos = Producto::with('marca')
-            ->when($busqueda, function ($query, $busqueda) {
-                $query->where('nombre', 'like', "%$busqueda%")
-                      ->orWhere('modelo', 'like', "%$busqueda%");
-            })
-            ->get();
+        // 🔍 Búsqueda por texto
+        if ($request->filled('buscar')) {
+            $query->where('nombre', 'like', '%' . $request->buscar . '%')
+                  ->orWhere('modelo', 'like', '%' . $request->buscar . '%');
+        }
 
-        return view('home', compact('productos', 'busqueda'));
+        // 🏷️ Filtro por marca
+        if ($request->filled('marca')) {
+            $query->where('marca_id', $request->marca);
+        }
+
+        // 🧩 Filtro por tipo
+        if ($request->filled('tipo')) {
+            $query->where('tipo', $request->tipo);
+        }
+
+        $productos = $query->get();
+
+        // Para los selects
+        $marcas = Marca::all();
+        $tipos = Producto::select('tipo')->distinct()->pluck('tipo');
+
+        return view('home', compact(
+            'productos',
+            'marcas',
+            'tipos'
+        ))->with([
+            'busqueda' => $request->buscar,
+            'marcaSeleccionada' => $request->marca,
+            'tipoSeleccionado' => $request->tipo,
+        ]);
     }
 }
