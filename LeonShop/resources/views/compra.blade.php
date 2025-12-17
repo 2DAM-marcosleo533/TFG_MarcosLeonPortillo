@@ -21,6 +21,15 @@
         <label>Unidades a comprar:</label><br>
         <input type="number" name="unidades" min="1" required><br><br>
 
+        <label>Selecciona una dirección:</label><br>
+        <select name="direccion_id" required>
+            @foreach($direcciones as $direccion)
+                <option value="{{ $direccion->id }}">
+                    Envío: {{ $direccion->direccion_envio }} | Facturación: {{ $direccion->direccion_facturacion }}
+                </option>
+            @endforeach
+        </select><br><br>
+        
         <button type="submit" class="btn btn-success btn-sm">
             Confirmar compra
         </button>

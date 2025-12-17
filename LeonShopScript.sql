@@ -27,7 +27,7 @@ CREATE TABLE productos (
 
 
 -- DIRECCION
-CREATE TABLE direccion (
+CREATE TABLE direcciones (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     direccion_envio TEXT NOT NULL,

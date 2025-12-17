@@ -11,8 +11,9 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $compras = $user->compras()->with('producto')->orderBy('created_at', 'desc')->get();
+        $direcciones = $user->direcciones;
 
-        return view('perfil', compact('user', 'compras'));
+        return view('perfil', compact('user', 'compras', 'direcciones'));
     }
 
     public function update(Request $request)

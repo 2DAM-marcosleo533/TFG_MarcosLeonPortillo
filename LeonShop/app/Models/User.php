@@ -52,4 +52,10 @@ class User extends Authenticatable
     return $this->hasMany(Compra::class);
 }
 
+public function direcciones()
+{
+    return $this->hasMany(Direccion::class);
+}
+
+
 }

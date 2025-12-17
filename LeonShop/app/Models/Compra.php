@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Compra extends Model
 {
-    protected $fillable = ['producto_id', 'user_id', 'unidades', 'importe', 'iva'];
+    protected $fillable = ['producto_id', 'user_id', 'direccion_id', 'unidades', 'importe', 'iva'];
 
     public function producto()
     {
@@ -17,5 +17,12 @@ class Compra extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function direccion()
+    {
+        return $this->belongsTo(Direccion::class);
+    }
 }
+
+
 

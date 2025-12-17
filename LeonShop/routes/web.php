@@ -8,6 +8,7 @@ use App\Http\Controllers\CompraController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\InformeController;
 use App\Http\Controllers\ComentarioController;
+use App\Http\Controllers\DireccionController;
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
@@ -58,6 +59,10 @@ Route::controller(InformeController::class)->group(function () {
 Route::controller(UserController::class)->group(function () {
     Route::get('/perfil', 'edit')->name('perfil.edit');
     Route::post('/perfil', 'update')->name('perfil.update');
+});
+
+Route::controller(DireccionController::class)->group(function () {
+    Route::post('/direcciones', 'store')->name('direcciones.store');
 });
 
 Route::controller(ComentarioController::class)

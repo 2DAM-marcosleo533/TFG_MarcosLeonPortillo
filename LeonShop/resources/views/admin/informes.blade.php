@@ -66,4 +66,14 @@
     </tbody>
 </table>
 
+<br>
+
+ <a href="{{ route('admin') }}"
+                    class="btn"
+                    style="background:#666; color:white; padding:12px 18px; border-radius:6px; width:5%; text-align:center;">
+                    <i class="bi bi-arrow-return-left"></i>
+                </a>
+</div> 
+
+
 @endsection

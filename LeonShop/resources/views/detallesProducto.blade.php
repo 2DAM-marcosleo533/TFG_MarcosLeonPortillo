@@ -53,7 +53,7 @@
         <p><strong>Tipo:</strong> {{ $producto->tipo }}</p>
 
         <a href="{{ route('home') }}" class="btn btn-secondary btn-sm">
-            Volver a la tienda
+            <i class="bi bi-arrow-return-left"></i>
         </a>
 
         @auth
@@ -138,21 +138,13 @@
                                     @method('DELETE')
 
                                     <button class="btn btn-danger btn-sm">
-                                        Eliminar
+                                        <i class="bi bi-trash"></i>
                                     </button>
                                 </form>
                             @endif
                         @endauth
                     </div>
                 </div>
-
-                {{-- IMAGEN --}}
-                <div style="width:120px;">
-                    <img src="{{ asset($imagenProducto) }}"
-                         alt="{{ $producto->tipo }}"
-                         style="width:100%; object-fit:contain;">
-                </div>
-
             </div>
         </div>
 

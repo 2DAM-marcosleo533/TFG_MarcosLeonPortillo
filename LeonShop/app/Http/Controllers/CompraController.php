@@ -11,63 +11,67 @@ use Illuminate\Support\Facades\DB;
 
 class CompraController extends Controller
 {
-    public function create(Producto $producto)
+   public function create(Producto $producto)
 {
     if (!Auth::check()) {
         return redirect()->route('login');
     }
 
-    return view('compra', compact('producto'));
+    $direcciones = Auth::user()->direcciones;
+
+    if ($direcciones->isEmpty()) {
+        return redirect()
+            ->route('perfil.edit')
+            ->with('error', 'Debes añadir una dirección antes de comprar.');
+    }
+
+    return view('compra', compact('producto', 'direcciones'));
 }
 
-
-   public function store(Request $request, Producto $producto)
+ public function store(Request $request, Producto $producto)
 {
-    // 🔒 Seguridad: por si entran sin login
     if (!Auth::check()) {
         return redirect()->route('login');
     }
 
     $request->validate([
-        'unidades' => 'required|integer|min:1'
+        'unidades' => 'required|integer|min:1',
+        'direccion_id' => 'required|exists:direcciones,id'
     ]);
 
     $user = Auth::user();
     $unidades = $request->unidades;
+    $direccionId = $request->direccion_id;
 
- 
     if ($unidades > $producto->unidades) {
         return back()->with('error', 'No hay suficientes unidades en stock');
     }
 
     $importe = $producto->precio * $unidades;
 
-   
     if ($user->saldo < $importe) {
-        return back()->with('error', 'No tienes saldo suficiente para realizar esta compra');
+        return back()->with('error', 'No tienes saldo suficiente');
     }
 
-    // ✅ TODO CORRECTO → SE REALIZA LA COMPRA
-    DB::transaction(function () use ($producto, $user, $unidades, $importe) {
+    DB::transaction(function () use ($producto, $user, $unidades, $importe, $direccionId) {
 
-        // Crear compra
         Compra::create([
             'producto_id' => $producto->id,
             'user_id'     => $user->id,
             'unidades'    => $unidades,
             'importe'     => $importe,
-            'iva'         => 0.21
+            'iva'         => 0.21,
+            'direccion_id'=> $direccionId, 
         ]);
 
-        // Restar stock
         $producto->decrement('unidades', $unidades);
-
-        // Restar saldo al usuario
         $user->decrement('saldo', $importe);
     });
 
-    return redirect()->route('home')->with('success', ' Compra realizada con éxito');
+    return redirect()->route('home')->with('success', 'Compra realizada con éxito');
 }
+
+
 
  public function edit()
     {

@@ -36,6 +36,49 @@
     </button>
 </form>
 
+<hr class="my-4">
+
+<h3>Añadir nueva dirección</h3>
+
+<form method="POST" action="{{ route('direcciones.store') }}">
+    @csrf
+
+    <label>Dirección de envío</label>
+    <textarea name="direccion_envio"
+              class="form-control mb-2"
+              rows="2"
+              required></textarea>
+
+    <label>Dirección de facturación</label>
+    <textarea name="direccion_facturacion"
+              class="form-control mb-2"
+              rows="2"
+              required></textarea>
+
+    @if ($errors->any())
+        <div class="text-danger">
+            {{ $errors->first() }}
+        </div>
+    @endif
+
+    <button class="btn btn-success mt-2">
+        Guardar dirección
+    </button>
+</form>
+
+@if ($direcciones->isNotEmpty())
+    <h4 class="mt-4">Mis direcciones</h4>
+
+    @foreach ($direcciones as $direccion)
+        <div class="border p-2 mb-2 rounded">
+            <strong>Envío:</strong>
+            <p>{{ $direccion->direccion_envio }}</p>
+
+            <strong>Facturación:</strong>
+            <p>{{ $direccion->direccion_facturacion }}</p>
+        </div>
+    @endforeach
+@endif
 
     <hr class="my-4">
 
@@ -51,6 +94,7 @@
                     <th>Unidades</th>
                     <th>Importe</th>
                     <th>Fecha</th>
+                    <th>Dirección</th>
                 </tr>
             </thead>
             <tbody>
@@ -60,6 +104,17 @@
                         <td>{{ $compra->unidades }}</td>
                         <td>{{ $compra->importe }} €</td>
                         <td>{{ $compra->fecha }}</td>
+                        <td>
+    @if ($compra->direccion)
+        <strong>Envío:</strong>
+        <p>{{ $compra->direccion->direccion_envio }}</p>
+
+        <strong>Facturación:</strong>
+        <p>{{ $compra->direccion->direccion_facturacion }}</p>
+    @else
+        <em>Sin dirección</em>
+    @endif
+</td>
                     </tr>
                 @endforeach
             </tbody>
