@@ -65,6 +65,12 @@
                 </select>
             </div>
 
+            {{-- Descripción --}}
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <textarea name="descripcion" class="form-control" rows="4" required></textarea>
+            </div>
+
             {{-- Botones --}}
             <div class="d-flex justify-content-between gap-2 mt-4">
 

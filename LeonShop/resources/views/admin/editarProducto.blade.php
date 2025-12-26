@@ -72,6 +72,12 @@
                 </select>
             </div>
 
+            {{-- Descripción --}}
+            <div class="mb-3">
+                <label class="form-label">Descripción</label>
+                <textarea name="descripcion" class="form-control" rows="4" required>{{ $producto->descripcion }}</textarea>
+            </div>
+
             {{-- Botones --}}
             <div class="d-flex justify-content-between mt-4">
 

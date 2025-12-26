@@ -19,6 +19,7 @@
                 <th>Tipo</th>
                 <th>Modelo</th>
                 <th>Marca</th>
+                <th>Descripción</th>
                 <th>Precio</th>
                 <th>Unidades</th>
                 <th>Acciones</th>
@@ -33,6 +34,7 @@
                 <td>{{ $producto->tipo }}</td>
                 <td>{{ $producto->modelo }}</td>
                 <td>{{ $producto->marca->nombre }}</td>
+                <td>{{ $producto->descripcion }}</td>
                 <td>{{ $producto->precio }} €</td>
                 <td>{{ $producto->unidades }}</td>
                 <td>
@@ -64,6 +66,6 @@
                     style="background:#666; color:white; padding:12px 18px; border-radius:6px; width:5%; text-align:center;">
                     <i class="bi bi-arrow-return-left"></i>
                 </a>
-</div> {{-- cierre del container --}}
+</div> 
 
 @endsection

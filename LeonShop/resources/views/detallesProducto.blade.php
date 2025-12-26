@@ -51,6 +51,10 @@
         <p><strong>Precio:</strong> {{ $producto->precio }} €</p>
         <p><strong>Unidades disponibles:</strong> {{ $producto->unidades }}</p>
         <p><strong>Tipo:</strong> {{ $producto->tipo }}</p>
+        <p><strong>Marca:</strong> {{ $producto->marca->nombre }}</p>
+        <p><strong>Descripción:</strong> {{ $producto->descripcion }}</p>
+
+        {{-- BOTONES --}}
 
         <a href="{{ route('home') }}" class="btn btn-secondary btn-sm">
             <i class="bi bi-arrow-return-left"></i>
