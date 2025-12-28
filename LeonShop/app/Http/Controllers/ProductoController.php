@@ -52,13 +52,13 @@ public function show(Producto $producto)
 
     if (Auth::check()) {
 
-        // ¿Ha comprado el producto?
+        // Comprobamos si el usuario ha comprado el producto
         $haComprado = DB::table('compras')
             ->where('user_id', Auth::id())
             ->where('producto_id', $producto->id)
             ->exists();
 
-        // ¿Ya ha comentado el producto?
+        // Comprobamos si el usuario ya ha comentado el producto
         $yaComentado = DB::table('comentarios')
             ->where('user_id', Auth::id())
             ->where('producto_id', $producto->id)

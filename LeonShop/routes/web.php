@@ -10,11 +10,12 @@ use App\Http\Controllers\InformeController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\DireccionController;
 
+//la pagina principal
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
 });
 
-
+//panel del admin
 Route::get('/admin', function () {
     return view('admin.admin');
 })->name('admin');
@@ -50,6 +51,7 @@ Route::controller(ProductoController::class)->group(function () {
 });
 
 
+//informes que ve el admin
 Route::controller(InformeController::class)->group(function () {
     Route::get('/admin/informes', 'index')->name('admin.informes');
 });

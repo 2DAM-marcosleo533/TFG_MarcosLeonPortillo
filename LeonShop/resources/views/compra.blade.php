@@ -4,16 +4,28 @@
 
 @section('content')
 
+<style>
+    
+</style>
+
 <div style="max-width:600px; margin:auto; background:white; padding:20px; border-radius:10px;">
 
-    <h2>Comprar: {{ $producto->nombre }}</h2>
+    <h2>{{ $producto->nombre }}</h2>
+
+    {{-- detalles de compra --}}
 
     <p><strong>Precio:</strong> {{ $producto->precio }} €</p>
     <p><strong>Stock disponible:</strong> {{ $producto->unidades }}</p>
     <p><strong>Tu saldo:</strong> {{ auth()->user()->saldo }} €</p>
+
+
+    {{-- si hay un error por saldo o stock, se muestra --}}
+
     @if(session('error'))
         <p style="color:red;">{{ session('error') }}</p>
     @endif
+
+    {{-- formulario de la compra --}}
 
     <form method="POST" action="{{ route('compras.store', $producto) }}">
         @csrf

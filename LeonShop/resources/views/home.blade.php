@@ -9,24 +9,24 @@
         background:#f5f5f5;
     }
 
-    .hero {
+    .titulo {
         text-align:center;
         padding:60px 20px 40px;
     }
 
-    .hero h1 {
+    .titulo h1 {
         font-size:52px;
         letter-spacing:4px;
         font-weight:800;
         margin-bottom:10px;
     }
 
-    .hero p {
+    .titulo p {
         color:#777;
         font-size:18px;
     }
 
-    .filters {
+    .filtros {
         max-width:1000px;
         margin:0 auto 50px;
         background:white;
@@ -35,7 +35,7 @@
         box-shadow:0 15px 40px rgba(0,0,0,.08);
     }
 
-    .filters-grid {
+    .filtros-grid {
         display:grid;
         grid-template-columns: 2fr 1fr 1fr auto;
         gap:15px;
@@ -130,15 +130,15 @@
     }
 </style>
 
-{{-- HERO --}}
-<div class="hero">
+{{-- titulo principal --}}
+<div class="titulo">
     <h1>LEONSHOP</h1>
     <p>Moda urbana · Estilo premium · Edición limitada</p>
 </div>
 
-{{-- FILTROS --}}
-<form method="GET" action="{{ route('home') }}" class="filters">
-    <div class="filters-grid">
+{{-- filtros de busqueda--}}
+<form method="GET" action="{{ route('home') }}" class="filtros">
+    <div class="filtros-grid">
 
         <div style="position: relative;">
             <input type="text"
@@ -177,7 +177,7 @@
     </div>
 </form>
 
-{{-- PRODUCTOS --}}
+{{-- productos que salen para comprar--}}
 <div class="product-grid">
 
 @foreach ($productos as $producto)
@@ -185,13 +185,20 @@
     @php
         $imagen = 'imagenes/default.png';
         switch ($producto->tipo) {
-            case 'Camiseta': $imagen = 'imagenes/camiseta.png'; break;
-            case 'Pantalón': $imagen = 'imagenes/pantalon.png'; break;
-            case 'Sudadera': $imagen = 'imagenes/sudadera.png'; break;
-            case 'Zapatos': $imagen = 'imagenes/zapatos.png'; break;
-            case 'Chaqueta': $imagen = 'imagenes/chaqueta.png'; break;
-            case 'Jersey': $imagen = 'imagenes/jersey.png'; break;
-            case 'Shorts': $imagen = 'imagenes/shorts.png'; break;
+            case 'Camiseta': $imagen = 'imagenes/camiseta.png'; 
+            break;
+            case 'Pantalón': $imagen = 'imagenes/pantalon.png'; 
+            break;
+            case 'Sudadera': $imagen = 'imagenes/sudadera.png'; 
+            break;
+            case 'Zapatos': $imagen = 'imagenes/zapatos.png'; 
+            break;
+            case 'Chaqueta': $imagen = 'imagenes/chaqueta.png'; 
+            break;
+            case 'Jersey': $imagen = 'imagenes/jersey.png'; 
+            break;
+            case 'Shorts': $imagen = 'imagenes/shorts.png'; 
+            break;
         }
     @endphp
 
