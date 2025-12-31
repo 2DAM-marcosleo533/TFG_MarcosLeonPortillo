@@ -11,17 +11,24 @@ class DireccionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'direccion_envio' => 'required|string',
-            'direccion_facturacion' => 'required|string',
+            'direccion_envio' => 
+            'required|string',
+            'direccion_facturacion' => 
+            'required|string',
         ], [
-            'direccion_envio.required' => 'La dirección de envío es obligatoria',
-            'direccion_facturacion.required' => 'La dirección de facturación es obligatoria',
+            'direccion_envio.required' => 
+            'Es obligatoria la dirección de envío',
+            'direccion_facturacion.required' => 
+            'Es obligatoria la dirección de facturación',
         ]);
 
         Direccion::create([
-            'user_id' => Auth::id(),
-            'direccion_envio' => $request->direccion_envio,
-            'direccion_facturacion' => $request->direccion_facturacion,
+            'user_id' => 
+            Auth::id(),
+            'direccion_envio' => 
+            $request->direccion_envio,
+            'direccion_facturacion' => 
+            $request->direccion_facturacion,
         ]);
 
         return redirect()

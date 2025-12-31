@@ -29,14 +29,30 @@
         <tbody>
             @foreach ($productos as $producto)
             <tr>
-                <td>{{ $producto->id }}</td>
-                <td>{{ $producto->nombre }}</td>
-                <td>{{ $producto->tipo }}</td>
-                <td>{{ $producto->modelo }}</td>
-                <td>{{ $producto->marca->nombre }}</td>
-                <td>{{ $producto->descripcion }}</td>
-                <td>{{ $producto->precio }} €</td>
-                <td>{{ $producto->unidades }}</td>
+                <td>
+                    {{ $producto->id }}
+                </td>
+                <td>
+                    {{ $producto->nombre }}
+                </td>
+                <td>
+                    {{ $producto->tipo }}
+                </td>
+                <td>
+                    {{ $producto->modelo }}
+                </td>
+                <td>
+                    {{ $producto->marca->nombre }}
+                </td>
+                <td>
+                    {{ $producto->descripcion }}
+                </td>
+                <td>
+                    {{ $producto->precio }} €
+                </td>
+                <td>
+                    {{ $producto->unidades }}
+                </td>
                 <td>
                     <a href="{{ route('admin.products.edit', $producto->id) }}"
                        class="btn btn-warning btn-sm">
@@ -46,7 +62,7 @@
                     <form method="POST"
                           action="{{ route('admin.products.destroy', $producto->id) }}"
                           style="display:inline;"
-                          onsubmit="return confirm('¿Eliminar este producto?');">
+                          onsubmit="return confirm('Eliminar este producto?');">
                         @csrf
                         @method('DELETE')
 

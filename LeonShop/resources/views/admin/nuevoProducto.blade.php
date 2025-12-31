@@ -4,92 +4,179 @@
 
 @section('content')
 
-<div class="container" style="max-width: 600px; margin-top: 30px;">
-    
-    <h1 class="mb-4">Crear nuevo producto</h1>
+<style>
+    .form-container {
+        max-width: 650px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
 
-    <div style="background:white; padding:25px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1);">
+    .form-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+    }
 
-        <form method="POST" action="{{ route('admin.productos.store') }}">
-            @csrf
+    .form-group {
+        margin-bottom: 15px;
+    }
 
-            {{-- Nombre --}}
-            <div class="mb-3">
-                <label class="form-label">Nombre</label>
-                <input type="text" name="nombre" class="form-control" required>
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    input, select, textarea {
+        width: 100%;
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 15px;
+    }
+
+    .form-row .form-group {
+        flex: 1;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 25px;
+    }
+
+    .btn {
+        padding: 10px 18px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .btn-primary {
+        background: #5a67d8;
+        color: white;
+    }
+
+    .btn-secondary {
+        background: #777;
+        color: white;
+    }
+</style>
+
+<div class="form-container">
+
+    <h2>Crear nuevo producto</h2>
+
+    <form method="POST" action="{{ route('admin.productos.store') }}">
+        @csrf
+
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" name="nombre" required>
+        </div>
+
+        <div class="form-group">
+            <label>Tipo</label>
+            <select name="tipo" required>
+                <option value="">
+                    Selecciona un tipo
+                </option>
+                <option value="Camiseta">
+                    Camiseta
+                </option>
+                <option value="Pantalón">
+                    Pantalón
+
+                </option>
+                <option value="Sudadera">
+                    Sudadera
+                </option>
+                <option value="Zapatos">
+                    Zapatos
+                </option>
+                <option value="Chaqueta">
+                    Chaqueta
+                </option>
+                <option value="Jersey">
+                    Jersey
+                </option>
+                <option value="Shorts">
+                    Shorts
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>
+                Modelo
+            </label>
+            <input type="text" name="modelo" required>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>
+                    Precio (€)
+                </label>
+                <input type="number" step="0.01" name="precio" required>
             </div>
 
-            {{-- Tipo --}}
-            <div class="mb-3">
-                <label class="form-label">Tipo</label>
-                 <select name="tipo" class="form-select" required>
-        <option value="">-- Selecciona un tipo --</option>
-        <option value="Camiseta">Camiseta</option>
-        <option value="Pantalón">Pantalón</option>  
-        <option value="Sudadera">Sudadera</option>
-        <option value="Zapatos">Zapatos</option>
-        <option value="Chaqueta">Chaqueta</option>
-        <option value="Jersey">Jersey</option>
-        <option value="Shorts">Shorts</option>
-    </select>
-</div>
+            <div class="form-group">
 
-            {{-- Modelo --}}
-            <div class="mb-3">
-                <label class="form-label">Modelo</label>
-                <input type="text" name="modelo" class="form-control" required>
+                <label>
+                    Unidades
+                </label>
+                <input type="number" name="unidades" required>
             </div>
+        </div>
 
-            {{-- Precio --}}
-            <div class="mb-3">
-                <label class="form-label">Precio (€)</label>
-                <input type="number" step="0.01" name="precio" class="form-control" required>
-            </div>
+        <div class="form-group">
+            <label>
+                Marca
+            </label>
+            <select name="marca_id" required>
+                <option value="">
+                    Selecciona una marca
+                </option>
+                @foreach ($marcas as $marca)
+                    <option value="{{ $marca->id }}">
+                        {{ $marca->nombre }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
-            {{-- Unidades --}}
-            <div class="mb-3">
-                <label class="form-label">Unidades</label>
-                <input type="number" name="unidades" class="form-control" required>
-            </div>
+        <div class="form-group">
+            <label>
+                Descripción
+            </label>
+            <textarea name="descripcion" rows="4" required></textarea>
+        </div>
 
-            {{-- Marca --}}
-            <div class="mb-3">
-                <label class="form-label">Marca</label>
-                <select name="marca_id" class="form-select" required>
-                    <option value="">-- Selecciona una marca --</option>
-                    @foreach ($marcas as $marca)
-                        <option value="{{ $marca->id }}">
-                            {{ $marca->nombre }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
+        <div class="buttons">
+            <a href="{{ route('admin.products') }}" class="btn btn-secondary">
+                Volver
+            </a>
 
-            {{-- Descripción --}}
-            <div class="mb-3">
-                <label class="form-label">Descripción</label>
-                <textarea name="descripcion" class="form-control" rows="4" required></textarea>
-            </div>
+            <button type="submit" class="btn btn-primary">
+                Guardar producto
+            </button>
+        </div>
 
-            {{-- Botones --}}
-            <div class="d-flex justify-content-between gap-2 mt-4">
-
-                <button type="submit"
-                    class="btn"
-                    style="background:#999AC6; color:white; font-weight:bold; padding:12px 18px; border-radius:6px; width:50%;">
-                    Guardar producto
-                </button>
-
-                <a href="{{ route('admin.products') }}"
-                    class="btn"
-                    style="background:#666; color:white; padding:12px 18px; border-radius:6px; width:10%; text-align:center;">
-                    <i class="bi bi-arrow-return-left"></i>
-                </a>
-
-            </div>
-
-        </form>
-    </div>
+    </form>
 
 </div>
 

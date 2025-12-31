@@ -14,9 +14,24 @@
 
     {{-- detalles de compra --}}
 
-    <p><strong>Precio:</strong> {{ $producto->precio }} €</p>
-    <p><strong>Stock disponible:</strong> {{ $producto->unidades }}</p>
-    <p><strong>Tu saldo:</strong> {{ auth()->user()->saldo }} €</p>
+    <p>
+        <strong>
+            Precio:
+        </strong> 
+        {{ $producto->precio }} €
+    </p>
+    <p>
+        <strong>
+            Stock disponible:
+        </strong>
+         {{ $producto->unidades }}
+        </p>
+    <p>
+        <strong>
+            Tu saldo:
+        </strong>
+         {{ auth()->user()->saldo }} €
+        </p>
 
 
     {{-- si hay un error por saldo o stock, se muestra --}}
@@ -27,25 +42,26 @@
 
     {{-- formulario de la compra --}}
 
-    <form method="POST" action="{{ route('compras.store', $producto) }}">
-        @csrf
+   <form method="POST" action="{{ route('carrito.add', $producto) }}">
+    @csrf
+    <label>Unidades:</label>
+    <input type="number"
+       name="cantidad"
+       min="1"
+       max="{{ $producto->unidades }}"
+       required>
 
-        <label>Unidades a comprar:</label><br>
-        <input type="number" name="unidades" min="1" required><br><br>
+    <br><br>
+    <button class="btn btn-success">
+        Añadir al carrito
+    </button>
+    <a href="{{ route('home') }}" class="btn btn-secondary btn-sm">
+            <i class="bi bi-arrow-return-left"></i>
+        </a>
+</form>
 
-        <label>Selecciona una dirección:</label><br>
-        <select name="direccion_id" required>
-            @foreach($direcciones as $direccion)
-                <option value="{{ $direccion->id }}">
-                    Envío: {{ $direccion->direccion_envio }} | Facturación: {{ $direccion->direccion_facturacion }}
-                </option>
-            @endforeach
-        </select><br><br>
-        
-        <button type="submit" class="btn btn-success btn-sm">
-            Confirmar compra
-        </button>
-    </form>
+
+
 
 </div>
 

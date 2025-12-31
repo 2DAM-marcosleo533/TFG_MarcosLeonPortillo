@@ -6,8 +6,7 @@
     <title>@yield('title', 'LeonShop')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
- <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
     body {
@@ -16,6 +15,9 @@
         background-color: #F9F9F9;
         font-family: 'Inter', sans-serif; 
         font-size: 14px;
+         display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     }
 
     h1 {
@@ -38,6 +40,31 @@
         font-family: 'Bebas Neue', sans-serif;
     }
 
+.header-link {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+.header-enlaces {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+
+.btn-logout {
+    background: none;
+    border: none;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+}
+
+
+
     footer {
         background-color: #1C1C1C;
         color: white;
@@ -49,10 +76,11 @@
 
    .content {
     padding: 20px;
-    min-height: calc(100vh - 160px);
+    flex: 1;
 }
 
-.login-icon {
+
+.logo-icono {
         width: 20px;
         height: 20px;
     }
@@ -64,60 +92,63 @@
 </head>
 <body>
 
-    {{-- CABECERA --}}
- <header style="background-color: #F0EEE5; padding: 20px; color: black; font-size: 20px; font-weight: bold; display:flex; justify-content:space-between; align-items:center;">
-    
-     <div>
+    {{-- parte de la cabecera de la pagina --}}
+ <header style="
+    background-color:#F0EEE5;
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+">
+
     <a href="{{ auth()->check() && auth()->user()->is_admin ? route('admin') : route('home') }}"
-       style="color:black; text-decoration:none; font-weight:bold;">
+       class="header-link">
         LEONSHOP
     </a>
-</div>
 
-    <div style="display:flex; gap:15px;">
+    <div class="header-enlaces">
+
+        <a href="{{ route('carrito.index') }}" class="header-link">
+            <i class="bi bi-cart-fill"></i>
+        </a>
 
         @guest
-            <a href="{{ route('register') }}" 
-               style="color:black; text-decoration:none; font-weight:bold;">
-               Registrarse
+            <a href="{{ route('register') }}" class="header-link">
+                Registrarse
             </a>
 
-            <a href="{{ route('login') }}" 
-               style="color:black; text-decoration:none; font-weight:bold;">
-               Iniciar sesión
+            <a href="{{ route('login') }}" class="header-link">
+                Iniciar sesión
             </a>
         @endguest
 
-       @auth
-    <div style="display:flex; align-items:center; gap:15px;">
+        @auth
+            <a href="{{ route('perfil.edit') }}" class="header-link">
+                <img class="logo-icono"
+                     src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+                     alt="icono login">
+                {{ auth()->user()->name }}
+            </a>
 
-        <a href="{{ route('perfil.edit') }}"
-           style="color:black; text-decoration:none; font-weight:bold;">
-            <img class="login-icon" src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="icono login"> {{ auth()->user()->name }}
-        </a>
-
-        <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button style="background:none; border:none; color:black; font-weight:bold; cursor:pointer;">
-                Cerrar sesión
-            </button>
-        </form>
-
-    </div>
-@endauth
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button class="btn-logout">
+                    Cerrar sesión
+                </button>
+            </form>
+        @endauth
 
     </div>
-
 </header>
 
 
 
-    {{-- CONTENIDO DE LA PÁGINA QUE SEA--}}
+    {{-- contenido de la pagina--}}
     <div class="content">
         @yield('content')
     </div>
 
-    {{-- PIE DE PÁGINA --}}
+    {{-- pie de pagina --}}
     <footer>
         © {{ date('Y') }} LEONSHOP — Todos los derechos reservados
     </footer>

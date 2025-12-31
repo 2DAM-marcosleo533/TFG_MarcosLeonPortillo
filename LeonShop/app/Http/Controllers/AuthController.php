@@ -54,9 +54,17 @@ class AuthController extends Controller
     return back()->withErrors(['email' => 'Las credenciales no son correctas']);
 }
 
-    public function logout()
-    {
-        Auth::logout();
-        return redirect('/');
-    }
+   public function logout(Request $request)
+{
+    $userId = auth()->id();
+
+    Auth::logout();
+
+    $request->session()->forget("carrito_user_{$userId}");
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect()->route('home');
+}
+
 }

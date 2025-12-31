@@ -5,17 +5,25 @@
 @section('content')
 
 <div class="container" style="max-width:600px;">
-    <h2 class="mb-4">Comentar producto</h2>
+    <h2 class="mb-4">
+        Comentar producto
+    </h2>
 
     <form method="POST" action="{{ route('comentarios.store', $producto) }}">
         @csrf
 
         <div class="mb-3">
-            <label class="form-label">Valoración</label>
+            <label class="form-label">
+                Valoración
+            </label>
             <select name="valoracion" class="form-select" required>
-                <option value="">Selecciona</option>
+                <option value="">
+                    Selecciona
+                </option>
                 @for ($i = 1; $i <= 5; $i++)
-                    <option value="{{ $i }}">{{ $i }} ⭐</option>
+                    <option value="{{ $i }}">
+                        {{ $i }} ⭐
+                    </option>
                 @endfor
             </select>
         </div>
@@ -26,7 +34,7 @@
         </div>
 
         <button class="btn btn-primary w-100">
-            Enviar comentario
+            Crear comentario
         </button>
     </form>
 </div>

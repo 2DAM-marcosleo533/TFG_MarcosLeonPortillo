@@ -22,7 +22,7 @@ class CompraController extends Controller
     if ($direcciones->isEmpty()) {
         return redirect()
             ->route('perfil.edit')
-            ->with('error', 'Debes añadir una dirección antes de comprar.');
+            ->with('error', 'Se debe añadir una dirección antes de comprar.');
     }
 
     return view('compra', compact('producto', 'direcciones'));
@@ -35,8 +35,10 @@ class CompraController extends Controller
     }
 
     $request->validate([
-        'unidades' => 'required|integer|min:1',
-        'direccion_id' => 'required|exists:direcciones,id'
+        'unidades' => 
+        'required|integer|min:1',
+        'direccion_id' => 
+        'required|exists:direcciones,id'
     ]);
 
     $user = Auth::user();
@@ -44,16 +46,23 @@ class CompraController extends Controller
     $direccionId = $request->direccion_id;
 
     if ($unidades > $producto->unidades) {
-        return back()->with('error', 'No hay suficientes unidades en stock');
+        return back()
+        ->with('error', 'No hay suficientes unidades en stock');
     }
 
     $importe = $producto->precio * $unidades;
 
     if ($user->saldo < $importe) {
-        return back()->with('error', 'No tienes saldo suficiente');
+        return back()
+        ->with('error', 'No tienes saldo suficiente');
     }
 
-    DB::transaction(function () use ($producto, $user, $unidades, $importe, $direccionId) {
+    DB::transaction(function () use (
+        $producto, 
+        $user, 
+        $unidades, 
+        $importe, 
+        $direccionId) {
 
         Compra::create([
             'producto_id' => $producto->id,
@@ -64,38 +73,16 @@ class CompraController extends Controller
             'direccion_id'=> $direccionId, 
         ]);
 
-        $producto->decrement('unidades', $unidades);
-        $user->decrement('saldo', $importe);
+        $producto
+        ->decrement('unidades', $unidades);
+
+        $user
+        ->decrement('saldo', $importe);
     });
 
-    return redirect()->route('home')->with('success', 'Compra realizada con éxito');
+    return redirect()
+    ->route('home')
+    ->with('success', 'Compra realizada con éxito');
 }
-
-
-
- public function edit()
-    {
-        $user = Auth::user();
-        $compras = $user->compras()->with('producto')->orderBy('fecha', 'desc')->get();
-
-        return view('perfil', compact('user', 'compras'));
-    }
-
-    public function update(Request $request)
-    {
-        $user = Auth::user();
-
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email'
-        ]);
-
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]);
-
-        return redirect()->route('perfil.edit')->with('success', 'Perfil actualizado');
-    }
 
 }

@@ -27,7 +27,7 @@ public function store(Request $request, Producto $producto)
 {
     $userId = Auth::id();
 
-    // ¿Ya ha comentado?
+    // ver si ha comentado ya
     $yaComentado = DB::table('comentarios')
         ->where('user_id', $userId)
         ->where('producto_id', $producto->id)
@@ -45,44 +45,62 @@ public function store(Request $request, Producto $producto)
     ]);
 
     Comentario::create([
-        'user_id' => $userId,
-        'producto_id' => $producto->id,
-        'texto' => $request->texto,
-        'valoracion' => $request->valoracion
+        'user_id' => 
+        $userId,
+
+        'producto_id' =>
+         $producto->id,
+
+        'texto' => 
+        $request->texto,
+
+        'valoracion' => 
+        $request->valoracion
     ]);
 
     return redirect()
         ->route('producto.show', $producto)
         ->with('success', 'Comentario añadido correctamente.');
 }
-    // EDITAR (solo dueño)
+    // que el dueño pueda editar su comentario
     public function edit(Comentario $comentario)
     {
         if ($comentario->user_id !== Auth::id()) {
+            //mando error 403 si no tiene permisos
             abort(403);
         }
 
         return view('comentarios.editarComentario', compact('comentario'));
     }
 
-    // ACTUALIZAR
+    // actualizacion de comentario
     public function update(Request $request, Comentario $comentario)
     {
         if ($comentario->user_id !== Auth::id()) {
+              //mando error 403 si no tiene permisos
             abort(403);
         }
 
         $request->validate([
-            'texto' => 'required',
-            'valoracion' => 'required|integer|min:1|max:5'
+            'texto' => 
+            'required',
+
+            'valoracion' => 
+            'required|integer|min:1|max:5'
         ], [
-            'texto.required' => 'El comentario es obligatorio',
-            'valoracion.required' => 'La valoración es obligatoria'
+            'texto.required' => 
+            'El comentario es obligatorio',
+
+            'valoracion.required' => 
+            'La valoración es obligatoria'
         ]);
 
         $comentario->update([
-            'texto' => $request->texto,
-            'valoracion' => $request->valoracion
+            'texto' => 
+            $request->texto,
+
+            'valoracion' => 
+            $request->valoracion
         ]);
 
         return redirect()
@@ -90,10 +108,11 @@ public function store(Request $request, Producto $producto)
             ->with('success', 'Comentario actualizado correctamente');
     }
 
-    // ELIMINAR (solo admin)
+    // que el admin pueda eliminar cualquier comentario
     public function destroy(Comentario $comentario)
     {
         if (!Auth::user()->is_admin) {
+                        //mando error 403 si no tiene permisos
             abort(403);
         }
 

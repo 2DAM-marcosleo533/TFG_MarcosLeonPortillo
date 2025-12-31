@@ -12,20 +12,26 @@ class HomeController extends Controller
     {
         $query = Producto::with('marca');
 
-        // 🔍 Búsqueda por texto
+        // busqueda por texto
         if ($request->filled('buscar')) {
-            $query->where('nombre', 'like', '%' . $request->buscar . '%')
-                  ->orWhere('modelo', 'like', '%' . $request->buscar . '%');
+            $query->where('nombre', 
+            'like', 
+            '%' . $request->buscar . '%')
+                  ->orWhere('modelo', 
+                  'like', 
+                  '%' . $request->buscar . '%');
         }
 
-        // 🏷️ Filtro por marca
+        // filtro por marca
         if ($request->filled('marca')) {
-            $query->where('marca_id', $request->marca);
+            $query->where('marca_id', 
+            $request->marca);
         }
 
-        // 🧩 Filtro por tipo
+        // filtro por tipo de prenda
         if ($request->filled('tipo')) {
-            $query->where('tipo', $request->tipo);
+            $query->where('tipo', 
+            $request->tipo);
         }
 
         $productos = $query->get();
@@ -39,9 +45,12 @@ class HomeController extends Controller
             'marcas',
             'tipos'
         ))->with([
-            'busqueda' => $request->buscar,
-            'marcaSeleccionada' => $request->marca,
-            'tipoSeleccionado' => $request->tipo,
+            'busqueda' => 
+            $request->buscar,
+            'marcaSeleccionada' 
+            => $request->marca,
+            'tipoSeleccionado' 
+            => $request->tipo,
         ]);
     }
 }

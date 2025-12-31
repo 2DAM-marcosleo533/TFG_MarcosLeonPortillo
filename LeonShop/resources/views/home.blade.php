@@ -128,12 +128,24 @@
         font-weight:700;
         transform:rotate(45deg);
     }
+
+    .icono-lupa {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        pointer-events: none;
+    }
+    
 </style>
 
 {{-- titulo principal --}}
 <div class="titulo">
     <h1>LEONSHOP</h1>
-    <p>Moda urbana · Estilo premium · Edición limitada</p>
+    <p>
+        Moda urbana · Estilo premium · Edición limitada
+    </p>
 </div>
 
 {{-- filtros de busqueda--}}
@@ -147,7 +159,7 @@
                    placeholder="Buscar producto"
                    value="{{ $busqueda ?? '' }}"
                    style="padding-left: 38px;">
-            <i class="bi bi-search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #6c757d; pointer-events: none;"></i>
+            <i class="bi bi-search icono-lupa"></i>
         </div>
 
         <select name="marca" class="form-select">

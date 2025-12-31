@@ -11,7 +11,7 @@ class InformeController extends Controller
 {
     public function index()
     {
-        // ✅ TOP 5 USUARIOS QUE MÁS HAN GASTADO
+        // 5 usuarios que mas dinero han gastado
         $topUsuarios = Compra::select(
                 'users.name',
                 DB::raw('SUM(compras.importe) as total_gastado')
@@ -22,7 +22,7 @@ class InformeController extends Controller
             ->limit(5)
             ->get();
 
-        // ✅ TOP 5 PRODUCTOS MÁS VENDIDOS (POR UNIDADES)
+        // los 5 productos que mas se han vendido
         $topProductos = Compra::select(
                 'productos.nombre',
                 DB::raw('SUM(compras.unidades) as total_vendido')
@@ -33,7 +33,7 @@ class InformeController extends Controller
             ->limit(5)
             ->get();
 
-        // ✅ TOP 5 MARCAS MÁS VENDIDAS (POR UNIDADES)
+        // las 5 marcas que mas se ha vendido
         $topMarcas = Compra::select(
                 'marcas.nombre',
                 DB::raw('SUM(compras.unidades) as total_vendido')

@@ -4,12 +4,37 @@
 
 @section('content')
 
+<style>
+    /* Informes */
+.informes-table {
+    margin-bottom: 30px;
+}
+
+/* Botón volver */
+.btn-volver-admin {
+    display: inline-block;
+    background: #666;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 6px;
+    width: 5%;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-volver-admin:hover {
+    background: #555;
+    color: white;
+}
+
+</style>
+
 <h2>Informes de la tienda</h2>
 
 <hr>
 
 <h4>Top 5 Usuarios que más han gastado</h4>
-<table class="table table-bordered">
+<table class="table table-bordered informes-table">
     <thead>
         <tr>
             <th>Usuario</th>
@@ -29,7 +54,7 @@
 <hr>
 
 <h4>Top 5 Productos más vendidos</h4>
-<table class="table table-bordered">
+<table class="table table-bordered informes-table">
     <thead>
         <tr>
             <th>Producto</th>
@@ -49,7 +74,7 @@
 <hr>
 
 <h4>Top 5 Marcas más vendidas</h4>
-<table class="table table-bordered">
+<table class="table table-bordered informes-table">
     <thead>
         <tr>
             <th>Marca</th>
@@ -68,12 +93,8 @@
 
 <br>
 
- <a href="{{ route('admin') }}"
-                    class="btn"
-                    style="background:#666; color:white; padding:12px 18px; border-radius:6px; width:5%; text-align:center;">
-                    <i class="bi bi-arrow-return-left"></i>
-                </a>
-</div> 
-
+<a href="{{ route('admin') }}" class="btn-volver-admin">
+    <i class="bi bi-arrow-return-left"></i>
+</a>
 
 @endsection

@@ -14,7 +14,9 @@
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     ">
 
-        <h2 class="text-center mb-4" style="font-weight: 600;">Crear cuenta</h2>
+        <h2 class="text-center mb-4">
+            Crear cuenta
+        </h2>
 
         <form method="POST" action="{{ route('register') }}">
             @csrf

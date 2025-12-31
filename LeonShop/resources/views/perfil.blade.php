@@ -27,7 +27,7 @@
     <input type="password" name="password" class="form-control mb-2" required>
 
     <label>Confirmar contraseña</label>
-    <input type="password" name="password2" class="form-control mb-2" required>
+    <input type="password" name="password_confirmation" class="form-control mb-2" required>
 
     {{-- si hay algun error sale mensaje --}}
     @if ($errors->any())

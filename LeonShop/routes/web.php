@@ -9,9 +9,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\InformeController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\DireccionController;
+use App\Http\Controllers\CarritoController;
 
 //la pagina principal
-Route::controller(HomeController::class)->group(function () {
+Route::controller(HomeController::class)
+->group(function () {
     Route::get('/', 'index')->name('home');
 });
 
@@ -21,7 +23,8 @@ Route::get('/admin', function () {
 })->name('admin');
 
 
-Route::controller(ProductoController::class)->group(function () {
+Route::controller(ProductoController::class)
+->group(function () {
 
     // detalles del producto
     Route::get('/producto/{producto}', 'show')
@@ -52,19 +55,26 @@ Route::controller(ProductoController::class)->group(function () {
 
 
 //informes que ve el admin
-Route::controller(InformeController::class)->group(function () {
-    Route::get('/admin/informes', 'index')->name('admin.informes');
+Route::controller(InformeController::class)
+->group(function () {
+    Route::get('/admin/informes', 'index')
+    ->name('admin.informes');
 });
 
 
 
-Route::controller(UserController::class)->group(function () {
-    Route::get('/perfil', 'edit')->name('perfil.edit');
-    Route::post('/perfil', 'update')->name('perfil.update');
+Route::controller(UserController::class)
+->group(function () {
+    Route::get('/perfil', 'edit')
+    ->name('perfil.edit');
+    Route::post('/perfil', 'update')
+    ->name('perfil.update');
 });
 
-Route::controller(DireccionController::class)->group(function () {
-    Route::post('/direcciones', 'store')->name('direcciones.store');
+Route::controller(DireccionController::class)
+->group(function () {
+    Route::post('/direcciones', 'store')
+    ->name('direcciones.store');
 });
 
 Route::controller(ComentarioController::class)
@@ -89,7 +99,8 @@ Route::controller(ComentarioController::class)
 
 
 
-Route::controller(CompraController::class)->group(function () {
+Route::controller(CompraController::class)
+->group(function () {
 
     Route::get('/compra/{producto}', 'create')
         ->name('compras.create');
@@ -100,13 +111,38 @@ Route::controller(CompraController::class)->group(function () {
 
 
 
-Route::controller(AuthController::class)->group(function () {
+Route::controller(AuthController::class)
+->group(function () {
 
-    Route::get('/login', 'showLogin')->name('login');
+    Route::get('/login', 'showLogin')
+    ->name('login');
     Route::post('/login', 'login');
 
-    Route::get('/register', 'showRegister')->name('register');
+    Route::get('/register', 'showRegister')
+    ->name('register');
     Route::post('/register', 'register');
 
-    Route::post('/logout', 'logout')->name('logout');
+    Route::post('/logout', 'logout')
+    ->name('logout');
 });
+
+
+Route::controller(CarritoController::class)
+    ->middleware('auth')
+    ->group(function () {
+
+        Route::get('/carrito', 'index')
+        ->name('carrito.index');
+
+        
+        Route::post('/carrito/checkout', 'checkout')
+            ->name('carrito.checkout');
+
+     
+        Route::post('/carrito/{producto}', 'add')
+            ->name('carrito.add');
+
+        Route::delete('/carrito/remove/{producto}', 'remove')
+            ->name('carrito.remove');
+});
+

@@ -21,7 +21,7 @@
             <select name="valoracion" class="form-select" required>
                 @for($i = 1; $i <= 5; $i++)
                     <option value="{{ $i }}" @selected($comentario->valoracion == $i)>
-                        {{ $i }}
+                        {{ $i }}⭐
                     </option>
                 @endfor
             </select>
