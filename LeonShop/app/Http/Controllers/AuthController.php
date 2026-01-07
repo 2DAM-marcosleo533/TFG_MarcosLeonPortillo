@@ -22,14 +22,23 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
+            'name' => 
+            'required',
+
+            'email' => 
+            'required|email|unique:users',
+
+            'password' => 
+            'required|min:6',
         ]);
 
         User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'name' => 
+            $request->name,
+
+            'email' => 
+            $request->email,
+
             'password' => Hash::make($request->password),
         ]);
 
@@ -51,7 +60,8 @@ class AuthController extends Controller
         return redirect()->route('home');
     }
 
-    return back()->withErrors(['email' => 'Las credenciales no son correctas']);
+    return back()
+    ->withErrors(['email' => 'Las credenciales no son correctas']);
 }
 
    public function logout(Request $request)

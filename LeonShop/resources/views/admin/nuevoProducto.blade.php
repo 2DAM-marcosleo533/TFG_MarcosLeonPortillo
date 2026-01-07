@@ -168,7 +168,7 @@
 
         <div class="buttons">
             <a href="{{ route('admin.products') }}" class="btn btn-secondary">
-                Volver
+                <i class="bi bi-arrow-return-left"></i>
             </a>
 
             <button type="submit" class="btn btn-primary">

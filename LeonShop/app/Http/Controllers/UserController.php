@@ -13,7 +13,13 @@ class UserController extends Controller
 
         return view('perfil', [
             'user'        => $user,
-            'compras'     => $user->compras()->with('producto')->latest()->get(),
+
+            'compras'     => 
+            $user->compras()
+            ->with('producto')
+            ->latest()
+            ->get(),
+
             'direcciones' => $user->direcciones,
         ]);
     }
@@ -22,8 +28,11 @@ class UserController extends Controller
     {
         Auth::user()->update([
             'name'     => $request->validate([
-                'name'     => 'required|string|max:255',
-                'password' => 'required|min:6|confirmed',
+                'name'     => 
+                'required|string|max:255',
+                
+                'password' => 
+                'required|min:6|confirmed',
             ])['name'],
             'password' => bcrypt($request->password),
         ]);

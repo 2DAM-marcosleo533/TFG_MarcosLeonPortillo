@@ -13,12 +13,22 @@ class ProductoController extends Controller
 {
     public function index()
     {
+        // si no tiene permisos, que salga aviso de prohibido
+        if (!Auth::check() || 
+        !Auth::user()->is_admin) {
+        abort(403);
+    }
         $productos = Producto::all();
         return view('admin.products', compact('productos'));
     }
 
     public function create()
     {
+        // si no tiene permisos, que salga aviso de prohibido
+        if (!Auth::check() || 
+        !Auth::user()->is_admin) {
+        abort(403);
+    }
         $marcas = Marca::all();
         return view('admin.nuevoProducto', compact('marcas'));
     }
@@ -58,13 +68,13 @@ public function show(Producto $producto)
             ->where('producto_id', $producto->id)
             ->exists();
 
-        // Comprobamos si el usuario ya ha comentado el producto
+        // comprobamos si el usuario ya ha comentado el producto
         $yaComentado = DB::table('comentarios')
             ->where('user_id', Auth::id())
             ->where('producto_id', $producto->id)
             ->exists();
 
-        // Puede comentar SOLO si ha comprado y NO ha comentado
+        // variable si puede comentar
         $puedeComentar = $haComprado && !$yaComentado;
     }
 
@@ -77,6 +87,11 @@ public function show(Producto $producto)
 
     public function edit($id)
     {
+        // si no tiene permisos, que salga aviso de prohibido
+        if (!Auth::check() || 
+        !Auth::user()->is_admin) {
+        abort(403);
+    }
         $producto = Producto::findOrFail($id);
         $marcas = Marca::all();
         return view('admin.editarProducto', compact('producto', 'marcas'));

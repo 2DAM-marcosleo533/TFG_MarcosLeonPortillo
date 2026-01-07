@@ -19,6 +19,11 @@ Route::controller(HomeController::class)
 
 //panel del admin
 Route::get('/admin', function () {
+    // que si no es admin y entra, salga aviso de prohibido
+     if (!Auth::check() || 
+     !Auth::user()->is_admin) {
+        abort(403);
+    }
     return view('admin.admin');
 })->name('admin');
 

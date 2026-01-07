@@ -5,12 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Compra;
 use App\Models\Producto;
 use App\Models\Marca;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class InformeController extends Controller
 {
     public function index()
     {
+        // si no tiene permisos, que salga aviso de prohibido
+        if (!Auth::check() || 
+        !Auth::user()->is_admin) {
+        abort(403);
+    }
+
         // 5 usuarios que mas dinero han gastado
         $topUsuarios = Compra::select(
                 'users.name',

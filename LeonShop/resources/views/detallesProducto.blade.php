@@ -116,7 +116,7 @@
 <h3 class="mt-5">Comentarios</h3>
 
 @if ($comentarios->isEmpty())
-    <p>No hay comentarios todavía.</p>
+    <p>No hay comentarios todavía</p>
 @else
 
     @foreach ($comentarios as $comentario)
