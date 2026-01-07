@@ -10,6 +10,8 @@ use App\Http\Controllers\InformeController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\CarritoController;
+use App\Models\Producto;
+use Illuminate\Support\Facades\Auth;
 
 //la pagina principal
 Route::controller(HomeController::class)
@@ -104,18 +106,6 @@ Route::controller(ComentarioController::class)
 
 
 
-Route::controller(CompraController::class)
-->group(function () {
-
-    Route::get('/compra/{producto}', 'create')
-        ->name('compras.create');
-
-    Route::post('/compra/{producto}', 'store')
-        ->name('compras.store');
-});
-
-
-
 Route::controller(AuthController::class)
 ->group(function () {
 
@@ -149,5 +139,11 @@ Route::controller(CarritoController::class)
 
         Route::delete('/carrito/remove/{producto}', 'remove')
             ->name('carrito.remove');
+
+        Route::get('/producto/{producto}/carrito', function (Producto $producto) {
+            return view('compra', compact('producto'));
+        })
+            ->name('carrito.form');
+
 });
 

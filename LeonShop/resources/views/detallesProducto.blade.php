@@ -82,9 +82,10 @@
 
       
         @auth
-            <a href="{{ route('compras.create', $producto) }}" class="btn btn-primary btn-sm">
-                Comprar
-            </a>
+            <a href="{{ route('carrito.form', $producto) }}" class="btn btn-primary btn-sm">
+    Comprar
+</a>
+
         @else
             <a href="{{ route('login') }}" class="btn btn-primary btn-sm">
                 Comprar
