@@ -10,7 +10,10 @@
     </div>
 @endif
 
-
+<strong>
+            Tu saldo:
+        </strong>
+         {{ auth()->user()->saldo }} €
 @if(empty($carrito))
     <p>El carrito está vacío</p>
 @else

@@ -61,7 +61,11 @@
     {{-- Formulario --}}
     <form method="POST" action="{{ route('login') }}">
         @csrf
-
+ @if ($errors->any())
+        <div class="text-danger">
+            {{ $errors->first() }}
+        </div>
+    @endif
         <input type="email" name="email" class="login-input" placeholder="USUARIO" required>
 
         <input type="password" name="password" class="login-input" placeholder="CONTRASEÑA" required>

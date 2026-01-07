@@ -20,7 +20,11 @@
 
         <form method="POST" action="{{ route('register') }}">
             @csrf
-
+ @if ($errors->any())
+        <div class="text-danger">
+            {{ $errors->first() }}
+        </div>
+    @endif
             {{-- Nombre --}}
             <div class="mb-3">
                 <label class="form-label">Nombre</label>

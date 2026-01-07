@@ -27,10 +27,7 @@
          {{ $producto->unidades }}
         </p>
     <p>
-        <strong>
-            Tu saldo:
-        </strong>
-         {{ auth()->user()->saldo }} €
+        
         </p>
 
 
