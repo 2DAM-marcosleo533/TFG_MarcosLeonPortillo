@@ -13,11 +13,13 @@ class DireccionController extends Controller
         $request->validate([
             'direccion_envio' => 
             'required|string',
+
             'direccion_facturacion' => 
             'required|string',
         ], [
             'direccion_envio.required' => 
             'Es obligatoria la dirección de envío',
+            
             'direccion_facturacion.required' => 
             'Es obligatoria la dirección de facturación',
         ]);

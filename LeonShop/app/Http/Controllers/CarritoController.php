@@ -7,8 +7,7 @@ use App\Models\Compra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CarritoController extends Controller
-{
+class CarritoController extends Controller{
    
     public function index()
 {
@@ -27,8 +26,7 @@ class CarritoController extends Controller
 
 
     // añadir un producto al carrito
-public function add(Request $request, Producto $producto)
-{
+public function add(Request $request, Producto $producto){
      $request->validate([
         'cantidad' => 'required|integer|min:1|max:' . $producto->unidades
     ]);
@@ -39,12 +37,14 @@ public function add(Request $request, Producto $producto)
     $key = "carrito_user_{$userId}";
     $carrito = session()->get($key, []);
 
+    //si el carrito ya tiene el producto, sumo las unidades y si no, lo añado
     if (isset($carrito[$producto->id])) {
 
     $nuevaCantidad = $carrito[$producto->id]['cantidad'] + $cantidad;
 
     if ($nuevaCantidad > $producto->unidades) {
-        return back()->with('error', 'No hay suficiente stock disponible');
+        return back()
+        ->with('error', 'No hay suficiente stock disponible');
     }
 
     $carrito[$producto->id]['cantidad'] = $nuevaCantidad;
@@ -67,8 +67,7 @@ public function add(Request $request, Producto $producto)
 }
 
 //comprar el carrito entero
-  public function checkout(Request $request)
-{
+  public function checkout(Request $request){
     $request->validate([
         'direccion_id' => 'required|exists:direcciones,id'
     ]);

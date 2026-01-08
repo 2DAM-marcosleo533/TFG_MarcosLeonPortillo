@@ -144,7 +144,7 @@
 <div class="titulo">
     <h1>LEONSHOP</h1>
     <p>
-        Moda urbana · Estilo premium · Edición limitada
+        Moda urbana | Estilo premium | Edición limitada
     </p>
 </div>
 
@@ -228,7 +228,7 @@
             <h3>{{ $producto->nombre }}</h3>
 
             <div class="meta">
-                {{ $producto->marca->nombre }} · {{ $producto->tipo }}
+                {{ $producto->marca->nombre }} - {{ $producto->tipo }}
             </div>
 
             <div class="price">

@@ -39,10 +39,12 @@ class AuthController extends Controller
             'email' => 
             $request->email,
 
-            'password' => Hash::make($request->password),
+            'password' => 
+            Hash::make($request->password),
         ]);
 
-        return redirect()->route('login');
+        return redirect()
+        ->route('login');
     }
 
     public function login(Request $request)
@@ -51,14 +53,10 @@ class AuthController extends Controller
 
     if (Auth::attempt($credentials)) {
 
-        //Si es admin enviar al panel
-        if (Auth::user()->is_admin) {
-            return redirect()->route('admin');
-        }
+        $request->session()->regenerate();
 
-        //Si no es admin enviar al home
-        return redirect()->route('home');
-    }
+        return redirect()->intended('/');
+    }   
 
     return back()
     ->withErrors(['email' => 'Las credenciales no son correctas']);
