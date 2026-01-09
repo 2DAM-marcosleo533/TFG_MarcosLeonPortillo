@@ -65,9 +65,13 @@
         text-align: center;
     }
 
-    .btn-primary {
-        background: #5a67d8;
+    .btn-primary-custom {
+         background: #999AC6;
         color: white;
+        font-weight: bold;
+        padding: 12px 18px;
+        border-radius: 6px;
+        border: none;
     }
 
     .btn-secondary {
@@ -171,7 +175,7 @@
                 <i class="bi bi-arrow-return-left"></i>
             </a>
 
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn-primary-custom">
                 Guardar producto
             </button>
         </div>

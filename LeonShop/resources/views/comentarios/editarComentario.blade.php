@@ -30,7 +30,7 @@
         <button class="btn btn-primary">Guardar cambios</button>
         <a href="{{ route('producto.show', $comentario->producto_id) }}"
            class="btn btn-secondary">
-            Volver
+            <i class="bi bi-arrow-return-left"></i>
         </a>
     </form>
 </div>
